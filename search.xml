@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Fedora安装与配置Samba服务]]></title>
+    <url>%2F2019%2F01%2F11%2Fsamba_configure.html</url>
+    <content type="text"><![CDATA[安装dnf install samba -y 配置 samba的配置文件位于/etc/samba/smb.conf 需要配置的文件有2部分[global]和[share] 1234567891011121314151617181920[global] workgroup=samba netbios name=samba_server #需要与workgroup不同 server string=samba_server log file=/var/log/samba/%T_%I_%m.log max log size=50 load printers=no security=USER passdb backend=tdbsam lanman auth=yes ntlm auth=yes #xp使用samba需要开启以上2个认证 hosts allow=192.168.0. # 仅允许192.168.0.0/24网段的用户访问[share] comment=home path=/path browseable=yes writetable=yes writelist=user1,@group1 create mode=0644 director mode=0755 测试配置文件testparm 将系统中的用户添加到samba中pdbedit -a -u user 添加防火墙规则firewall-cmd --zone=public --add-rich-rule=&#39;rule family=&quot;ipv4&quot; source address=192.168.0.0/24 port port=139 protocol=tcp --accept&#39; --permanentfirewall-cmd --zone=public --add-rich-rule=&#39;rule family=&quot;ipv4&quot; source address=192.168.0.0/24 port port=445 protocol=tcp --accept&#39; --permanentfirewall-cmd --reload 启动samba服务systemctl start smb.servicesystemctl enable smb.service 在Windows系统中映射网络磁盘 在Linux中挂载磁盘:123456# 使用smbclient观察samba服务smbclient -L server_ip -U user_name# 以FTP的方式的登陆smbclient &apos;//ip/share&apos; -U user_name# 以网络磁盘的方式挂载mount -t cifs //ip/share /mnt -o username=user,password=passwd]]></content>
+      <tags>
+        <tag>samba</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[将hexo源文件备份到git中]]></title>
     <url>%2F2019%2F01%2F11%2Fhexo_backup_git.html</url>
     <content type="text"><![CDATA[如果本地hex的工作目录使用的是 xxx.github.io的方式命名的，需要将文件夹重命名hexo(名称自定)； 在git中新建一个repo，名称与本地文件夹相同； 初始化本地文件夹git init 设置不需要推送到git的文件和文件夹： 12345 touch .gitignore # 在.gitignore文件夹中加入 *.log /public*.deploy/ 删除主题文件夹中的.git文件夹； 在本地添加远程仓地址git remote add origin git@github.com:kim0x/hexo.git; 将本地源文件推送到git中：123git add .git commit -m &quot;backup&quot;git push origin master]]></content>
