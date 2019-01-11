@@ -72,7 +72,7 @@
 
 
 
-  <meta name="keywords" content="git,hexo,">
+  <meta name="keywords" content="hexo,git,">
 
 
 
@@ -84,14 +84,14 @@
 
 
 <meta name="description" content="如果本地hex的工作目录使用的是 xxx.github.io的方式命名的，需要将文件夹重命名hexo(名称自定)； 在git中新建一个repo，名称与本地文件夹相同； 初始化本地文件夹git init">
-<meta name="keywords" content="git,hexo">
+<meta name="keywords" content="hexo,git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="将hexo源文件备份到git中">
 <meta property="og:url" content="https://kim0x.github.io/2019/01/11/hexo_backup_git.html">
 <meta property="og:site_name" content="笔记本">
 <meta property="og:description" content="如果本地hex的工作目录使用的是 xxx.github.io的方式命名的，需要将文件夹重命名hexo(名称自定)； 在git中新建一个repo，名称与本地文件夹相同； 初始化本地文件夹git init">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-11T07:19:29.239Z">
+<meta property="og:updated_time" content="2019-01-11T07:21:08.068Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="将hexo源文件备份到git中">
 <meta name="twitter:description" content="如果本地hex的工作目录使用的是 xxx.github.io的方式命名的，需要将文件夹重命名hexo(名称自定)； 在git中新建一个repo，名称与本地文件夹相同； 初始化本地文件夹git init">
@@ -391,9 +391,7 @@
         <ol>
 <li>如果本地hex的工作目录使用的是 xxx.github.io的方式命名的，需要将文件夹重命名hexo(名称自定)；</li>
 <li>在git中新建一个repo，名称与本地文件夹相同；</li>
-<li><p>初始化本地文件夹<br><code>git init</code></p>
-<a id="more"></a>
-<ol start="4">
+<li>初始化本地文件夹<br><code>git init</code><a id="more"></a></li>
 <li><p>设置不需要推送到git的文件和文件夹：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> touch .gitignore</span><br><span class="line"> # 在.gitignore文件夹中加入</span><br><span class="line"> *.log</span><br><span class="line"> /public</span><br><span class="line">*.deploy/</span><br></pre></td></tr></table></figure>
 </li>
@@ -401,8 +399,6 @@
 </li>
 <li>在本地添加远程仓地址<code>git remote add origin git@github.com:kim0x/hexo.git</code>;</li>
 <li>将本地源文件推送到git中：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;backup&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
 </li>
 </ol>
 
@@ -441,9 +437,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/git/" rel="tag"># git</a>
-          
             <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+            <a href="/tags/git/" rel="tag"># git</a>
           
         </div>
       

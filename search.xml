@@ -5,8 +5,8 @@
     <url>%2F2019%2F01%2F11%2Fhexo_backup_git.html</url>
     <content type="text"><![CDATA[如果本地hex的工作目录使用的是 xxx.github.io的方式命名的，需要将文件夹重命名hexo(名称自定)； 在git中新建一个repo，名称与本地文件夹相同； 初始化本地文件夹git init 设置不需要推送到git的文件和文件夹： 12345 touch .gitignore # 在.gitignore文件夹中加入 *.log /public*.deploy/ 删除主题文件夹中的.git文件夹； 在本地添加远程仓地址git remote add origin git@github.com:kim0x/hexo.git; 将本地源文件推送到git中：123git add .git commit -m &quot;backup&quot;git push origin master]]></content>
       <tags>
-        <tag>git</tag>
         <tag>hexo</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
