@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Hexo主题Next配置过程]]></title>
+    <url>%2F2019%2F01%2F11%2Fhexo-theme-configure.html</url>
+    <content type="text"><![CDATA[Next主题是Hexo最受欢迎的主题，主题地址https://github.com/iissnan/hexo-theme-next 首先在hexo文档中安装Next主题git clone https://github.com/iissnan/hexo-theme-next.git themes/next 启用next主题,打开文档根目录下的_config.yml文件，定位到theme:将原主题注释掉，新增theme: next保存 配置过程站点配置 该过程主要配置文件为根目录下的_config.yml文件 定位到Site，根据站点的实际内容修改； 在设置固定链接时，在permalink的最后，新增一项page_name用于个性化现实文章的url; 设置deploy:1234deploy: - type: git - repo: git@github.com:kim0x/kim0x.github.io.git - branck: master 主题配置 主题配置主要使用的文件是themes/next/_config.yml 修改网站的favicon 将icon文件存放到主题根目录中的sources/images文件夹中 修改网站菜单 定位到Menu Setting,分别启用home about archives 在hexo文档根目录中创建一个新的页面hexo new page about,将about/index.md的layout设置为page 选择网站布局 Next主题提供了4种网站布局Muse/Mist/Pisces/Gemini,可以根据需要选择并将其他的布局注释 侧边栏设置 侧边栏可以根据需要开启社交链接和头像avatar 开启文章字数统计功能 安装hexo-wordcount在hexo文档根目录下执行npm install hexo-wordcount 开启文章版权 文章版权可以使用CC BY ND 4.0,协议地址http://creativecommons.org/licenses/by-nd/4.0 在文件layout/_macro/post.swig的post-body末尾处添加以下代码： 12345678910111213141516171819&lt;div&gt; &#123;# 表示如果不在索引列表中加入后续的HTML代码 #&#125; &#123;% if not is_index %&#125; &lt;ul class=&quot;post-copyright&quot;&gt; &lt;li class=&quot;post-copyright-author&quot;&gt; &lt;strong&gt;本文作者：&lt;/strong&gt;&#123;&#123; theme.author &#125;&#125; &lt;/li&gt; &lt;li class=&quot;post-copyright-link&quot;&gt; &lt;strong&gt;本文链接：&lt;/strong&gt; &lt;a href=&quot;&#123;&#123; url_for(page.path) &#125;&#125;&quot; title=&quot;&#123;&#123; page.title &#125;&#125;&quot;&gt;&#123;&#123; page.path &#125;&#125;&lt;/a&gt; &lt;/li&gt; &lt;li class=&quot;post-copyright-license&quot;&gt; &lt;strong&gt;版权声明： &lt;/strong&gt; 本网站所有文章除特别声明外，均采用&lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by-nd/4.0/&quot;&gt;知识共享署名-禁止演绎 4.0 国际许可协议&lt;/a&gt;进行许可。 &lt;/li&gt; &lt;/ul&gt; &lt;a rel=&quot;license&quot; href=&quot;http://creativecommons.org/licenses/by-nd/4.0/&quot;&gt;&lt;img alt=&quot;知识共享许可协议&quot; style=&quot;border-width:0&quot; src=&quot;https://i.creativecommons.org/l/by-nd/4.0/88x31.png&quot; /&gt;&lt;/a&gt;&lt;br /&gt; &#123;% endif %&#125;&lt;/div&gt; 在文件source/css/_custom/custom.styl中添加以下代码: 1234567.post-copyright &#123; margin: 2em 0 0; padding: 0.5em 1em; border-left: 3px solid #ff1700; background-color: #f9f9f9; list-style: none;&#125; 设置代码配色方案 代码配色有noemal|night|night wighties|night blue|night bruight几种,可以选择night模式 开启网站访问统计 使用Leancloud来储存访问信息，在Leancloud中新建一个Counter类，将app_id和app_key分别填写到配置文件中 开启本地搜索支持 安装支持npm install hexo-generator-searchdb]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用KVM创建Windows虚拟环境]]></title>
+    <url>%2F2019%2F01%2F11%2Fkvm_windows.html</url>
+    <content type="text"><![CDATA[经过测试，使用kvm创建的Windows环境，在使用体验和性能上不如Virtualbox，如非特殊需求，可以在Virtualbox中虚拟Windows环境。 创建kvm 通过命令行模式创建基于kvm的全虚拟化Windows XP环境: 1234567891011virt-install \ --name winxp \ --virt-type kvm \ --hvm \ --os-variant winxp \ --memory 2048 \ --vcpus 2 \ --graphics vnc \ --network bridge=br0,model=virtio \ --cdrom /home/user/ios/winxp.iso \ --disk path=/home/user/kvm/disk/winxp25G.qcow2,size=25,bus=ide 在创建虚拟环境时，有以下几点需要注意： 关于全虚拟化，可以根据需要选择性开启，如果开启，添加--hvm,如果不开启，则将--hvm移除； 设置网络时，注意添加网络模式virtio; 在添加磁盘时，格式选择为qcow2,同时要指定bus模式为ide，如果指定为virtio模式，启动虚拟环境时，会出现蓝屏； 安装完成后，需要安装Windows的网络驱动: 首先需要下载virtio iso格式的驱动 ，驱动的下载地址https://docs.fedoraproject.org/en-US/quick-docs/creating-windows-virtual-machines-using-virtio-drivers/; 将下载的iso格式的驱动文件挂载到虚拟机中virsh edit winxp编辑虚拟机的文件，找到cdrom选项，将驱动的iso文件路径替换掉原来的，在进行编辑之前，首先要将原来的xml文件备份virsh dumpxml winxp &gt; /home/user/kvm/winxp.xml; 启动虚拟机，安装网卡驱动，测试网络；]]></content>
+      <tags>
+        <tag>KVM</tag>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+</search>
